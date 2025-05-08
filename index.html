@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Atividades</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #cce5fd;
+            background: linear-gradient(to left, #f0f8ff, #cce5fd);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        #logo {
+            height: 5rem;
+            width: auto;
+            transition: transform 0.2s ease;
+        }
+
+        #logo:hover {
+            transform: scale(1.1);
+        }
+
+        .links,
+        .links h1 {
+            color: rgb(48, 48, 255);
+            font-size: 5rem;
+            margin: 0;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+            background: linear-gradient(to right, rgb(48, 48, 255), rgb(0, 0, 65));
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h1:hover {
+            transform: scale(1.02);
+        }
+
+        h2 {
+            padding: 0.5rem;
+        }
+
+        h4 {
+            display: flex;
+            align-items: center;
+            color: #555;
+            font-size: 1rem;
+            font-weight: 400;
+            text-align: center;
+            margin-top: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: linear-gradient(to right, #f0f8ff, #cce5fd);
+            border-radius: 1rem;
+            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+        }
+
+        .form-container {
+            margin-bottom: 20px;
+        }
+
+        .form-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input {
+            background-color: whitesmoke;
+            border: 1px solid #ccc;
+            border-radius: 1rem;
+            padding: 0.8rem;
+            margin-top: 0.5rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: rgb(48, 48, 255);
+            box-shadow: 0 0 5px rgba(48, 48, 255, 0.5);
+        }
+
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 1rem;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            font-weight: bolder;
+            cursor: pointer;
+            background-color: gray;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .add-button {
+            background-color: rgb(48, 48, 255);
+        }
+
+        .add-button:hover {
+            background-color: rgb(1, 1, 146);
+        }
+
+        .button-green {
+            background-color: rgb(2, 167, 2);
+        }
+
+        .button-green:hover {
+            background-color: rgb(0, 119, 0);
+        }
+
+        .button-red {
+            background-color: red;
+        }
+
+        .button-red:hover {
+            background-color: rgb(138, 0, 0);
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #e9ecef;
+            font-weight: bold;
+        }
+
+        td {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        td:before {
+            content: attr(data-label);
+            font-weight: bold;
+            display: inline-block;
+            width: 40%;
+            padding-right: 10px;
+        }
+
+        tr {
+            margin-bottom: 10px;
+            display: block;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        thead {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .links h1 {
+                font-size: 3rem;
+            }
+
+            #logo {
+                height: 4rem;
+            }
+
+            .container {
+                width: 90%;
+                padding: 1rem;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="links" style="display: flex; align-items: center; justify-content: center; gap: 1rem; text-decoration: none;">
+            <img src="relogio.jpeg.png" alt="relogio" id="logo">
+            <h1>TimeAwards</h1>
+        </a>
+        <h4>Gerencie seu tempo de forma eficiente, monitore atividades e otimize sua rotina diária.</h4>
+    </header>
+
+    <main class="container">
+        <h2>Atividade</h2>
+        <div class="form-container">
+            <div class="form-grid">
+                <input type="text" id="atividade" placeholder="Nome da Atividade">
+                <input type="number" id="horas" placeholder="Horas" min="0">
+                <input type="number" id="metaHoras" placeholder="Meta de Horas" min="0">
+                <button class="add-button" onclick="adicionarAtividade()">Adicionar</button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Atividade</th>
+                        <th>Horas</th>
+                        <th>Meta de Horas</th>
+                        <th>Meta Cumprida</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaAtividades">
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script>
+        function adicionarAtividade() {
+            const atividade = document.getElementById('atividade').value.trim();
+            const horas = parseFloat(document.getElementById('horas').value) || 0;
+            const metaHoras = parseFloat(document.getElementById('metaHoras').value) || 0;
+
+            if (!atividade) {
+                alert('Por favor, insira o nome da atividade.');
+                return;
+            }
+
+            const metaCumprida = horas >= metaHoras ? 'Sim' : 'Não';
+            const classeBotao = metaCumprida === 'Sim' ? 'button-green' : 'button-red';
+
+            const tabela = document.getElementById('tabelaAtividades');
+            const novaLinha = document.createElement('tr');
+            novaLinha.innerHTML = `
+                <td data-label="Atividade">${atividade}</td>
+                <td data-label="Horas">${horas}</td>
+                <td data-label="Meta de Horas">${metaHoras}</td>
+                <td data-label="Meta Cumprida">
+                    <button class="${classeBotao}">${metaCumprida}</button>
+                </td>
+            `;
+            tabela.appendChild(novaLinha);
+
+            document.getElementById('atividade').value = '';
+            document.getElementById('horas').value = '';
+            document.getElementById('metaHoras').value = '';
+        }
+    </script>
+</body>
+
+</html>
